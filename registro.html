@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro SIMUS.MJN</title>
+    <style>
+      body {
+        font-family: monospace, sans-serif;
+        background: linear-gradient(to right, #5d49f8d2, #b8b6cf); /*este es pal fondo*/
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        height: 100vh;
+        margin: 0;
+      }
+      .cajaderegistro {
+        background: white;
+        padding: 60px;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.637);
+        width:400px;
+      }
+      h2 {
+        text-align: center;
+        color:#6d5fe0;
+      }
+
+      /*lode etiquetas y campos*/
+      label {
+        display: block;
+        margin: 16px 0 6px;
+        font-weight: bold;
+        color: #333;
+      }
+      input {
+        width:100%;
+        padding:10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;;
+      }
+      /*mensajes de error*/
+      .errores {
+        font-size: 13px;
+        color: red;
+        margin-top:4px;
+      }
+
+      /*el coso de aceptacion de terminos*/
+      .checkbox {
+        display:flex;
+        align-items: center;
+        justify-content:flex-start;
+        gap:6px;
+        margin-top:12px;
+      }
+      .checkbox label{
+        margin:0;
+        font-size:14px;
+        color: #333;
+      }
+      .checkbox a{
+        color:#6d5fe0;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .checkbox a:hover{
+        text-decoration: underline;;
+      }
+
+      /*el boton de registrarse*/
+      button {
+        margin-top: 18px;
+        width:100%;
+        padding:12px;
+        background: #8a7cf7;
+        border:none;
+        border-radius:8px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        display:block;
+      }
+
+      button :hover {
+        background:#6d5fe0;
+      }
+
+      /*link de inicio de sesion si uno ya tiene cuenta*/
+      .linkdeinicio {
+        text-align: center;
+        margin-top:15px;
+        font-size:14px;
+      }
+      .linkdeinicio a {
+        color:#6d5fe0;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="cajaderegistro">
+      <h2>Crear cuenta</h2>
+
+      <!--maria, esto es lo de conexion al php para la base de datos en mysql-->
+
+      <form id="camposderegistro" action="registro.php" method="POST">
+
+        <!--nombre del usuario-->
+        <label for="nombre">Nombre </label>
+        <input type="text" id="nombre" name="nombre" required>
+        <div id="errorNombre" class="errores"></div>
+
+        <!--apellidos-->
+        <label for="apellidos">Apellidos </label>
+        <input type="text" id="apellidos" name="apellidos" required>
+        <div id="errorApellidos" class="errores"></div>
+
+        <!--correo-->
+        <label for="correo">Correo electrónico</label>
+        <input type="text" id="correo" name="correo" required>
+        <div id="errorCorreo" class="errores"></div> 
+
+        <!--contraseña-->
+
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" required minlength="8">
+        <div id="errorContrasena" class="errores"></div>
+
+        <!--confirm de contraseña-->
+        <label for="confirmocontrasena">Confirmar contraseña</label>
+        <input type="password" id="confirmocontrasena" name="confirmocontrasena" required minlength="8">
+        <div id="errorconfirmocontrasena" class="errores"></div>
+
+        <!--el coso de terminos ley 1581-->
+        <div class="checkbox">
+          <input type="checkbox" id="aceptoterminos" name="aceptoterminos">
+          <label for="aceptoterminos">
+            Acepto los <a href="terminos.html" target="_blank">términos y condiciones</a>
+          </label>
+        </div>
+        <div id="errorAceptoTerminos" class="errores"></div>
+
+        <!--elboton de enviar-->
+        <button type="submit">Registrarse</button>
+      <form>
+
+      <div class="linkdelogin">
+        ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>
+      </div>
+    </div>
+
+
+    <!--el coso de javascript-->
+
+    <script>
+      const formulari=document.getElementById('camposderegistro');
+// este vaino evita que el registro se envie si hay errores
+      formulari.addEventListener("submit", function(evento) {
+        evento.preventDefault();
+        let esvalido=true;
+
+        //limpia los mensajes de error
+        document.querySelectorAll(".errores").forEach(e=>e.textContent="");
+
+
+        //optencion de valores, maria tengo sueño xd
+        const nombre =document.getElementById("nombre").value.trim();
+        const apellidos=document.getElementById("apellidos").value.trim();
+        const correo=document.getElementById("correo").value.trim();
+        const contrasena=document.getElementById("contrasena").value.trim();
+        const confirmocontrasena=document.getElementById("confirmocontrasena").value.trim();
+        const aceptoterminos=document.getElementById("aceptoterminos").checked;
+
+        if (nombre==="") {
+          document.getElementById("errorNombre").textContent="Ingresa tu nombre.";
+          esvalido=false;
+        }
+        
+        if (apellidos==="") {
+          document.getElementById("errorApellidos").textContent="Ingresa tus apellidos.";
+          esvalido=false;
+        }
+
+        if (correo==="") {
+          document.getElementById("errorCorreo").textContent="Ingresa tu correo electrónico.";
+          esvalido=false;
+        }
+
+        if (contrasena.length<8) {
+          document.getElementById("errorContrasena").textContent="La contraseña debe tener como minimo 8 caracteres.";
+          esvalido=false;
+        }
+
+        if (confirmocontrasena!==contrasena){
+          document.getElementById("errorConfirmoContrasena").textContent="Las contraseñas no coinciden.";
+          esvalid=false;
+        }
+
+        if (!aceptoterminos) {
+          document.getElementById("errorAceptoTerminos").textContent="Tienes que aceptar los términos y condiciones.";
+          esvalido=false;
+        }
+        if (esvalido){
+          formulari.submit();
+        }
+      });
+    </script>
+  </body>
+</html>
+
