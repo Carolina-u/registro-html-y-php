@@ -14,6 +14,7 @@ if($conexionbasededatos->connect_error){
 }
 
 //aqui se reciben los datos del registro en el coso de html
+$cedula=trim($_POST['cedula']);
 $nombre =trim($_POST['nombre']);
 $apellidos=trim($_POST['apellidos']);
 $correo=trim($_POST['correo']);
@@ -38,12 +39,12 @@ $contasenasegura=password_hash($contrasena, PASSWORD_BCRYPT);
 
 //Ahora es la base de datos, aqui si tiene que meter la tabla de usuarios o no se como le puso
 //esto si es ia, lo tiene que meter, maria porque yo no lo tengo
-$sql="INSERT INTO usuarios (nombre, apellidos, correo, contrasena, aceptoterminos) VALUES (?, ?, ?, ?, ?)";
+$sql="INSERT INTO usuarios (cedula, nombre, apellidos, correo, contrasena, aceptoterminos) VALUES (?, ?, ?, ?, ?)";
 
 
 //ya esto no es ia
 $stmt= $conexionbasededatos->prepare($sql);
-$stmt->bind_param("ssssi", $nombre, $apellidos, $correo, $contasenasegura, $aceptoterminos);
+$stmt->bind_param("ssssi", $cedula, $nombre, $apellidos, $correo, $contasenasegura, $aceptoterminos);
 
 if ($stmt ->execute()){
   echo "Cuenta creada. Puedes <a href='login.html'>iniciar sesión</a>.";
@@ -59,3 +60,4 @@ $stmt->close();
 $conexionbasededatos ->close();
 ?>
 File: registro.html
+
