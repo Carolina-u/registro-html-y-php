@@ -70,9 +70,10 @@
 
       /*el boton de registrarse*/
       button {
-        margin-top: 18px;
+        margin-top: 15px;
+        margin-bottom: 20px;
         width:100%;
-        padding:12px;
+        padding:15px;
         background: #8a7cf7;
         border:none;
         border-radius:8px;
@@ -91,7 +92,7 @@
       .linkdeinicio {
         text-align: center;
         margin-top:15px;
-        font-size:14px;
+        font-size:7px;
       }
       .linkdeinicio a {
         color:#6d5fe0;
@@ -108,6 +109,10 @@
       <!--maria, esto es lo de conexion al php para la base de datos en mysql-->
 
       <form id="camposderegistro" action="registro.php" method="POST">
+        <!--cedula de ciudadania-->
+        <label for="Cédula">Cédula de ciudadanía</label>
+        <input type="text" id="cedula" name="cedula" required>
+        <div id="errorCedula" class="errores"></div>
 
         <!--nombre del usuario-->
         <label for="nombre">Nombre </label>
@@ -168,12 +173,18 @@
 
 
         //optencion de valores, maria tengo sueño xd
+        const cedula=document.getElementById("cedula").value.trim();
         const nombre =document.getElementById("nombre").value.trim();
         const apellidos=document.getElementById("apellidos").value.trim();
         const correo=document.getElementById("correo").value.trim();
         const contrasena=document.getElementById("contrasena").value.trim();
         const confirmocontrasena=document.getElementById("confirmocontrasena").value.trim();
         const aceptoterminos=document.getElementById("aceptoterminos").checked;
+
+        if (cedula===""){
+          document.getElementById("errorCedula").textContent="Ingresa tu cédula";
+          esvalido=false;
+        }
 
         if (nombre==="") {
           document.getElementById("errorNombre").textContent="Ingresa tu nombre.";
