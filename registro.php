@@ -16,7 +16,7 @@ if($conexionbasededatos->connect_error){
 //aqui se reciben los datos del registro en el coso de html
 $cedula=trim($_POST['cedula']);
 $nombre =trim($_POST['nombre']);
-$apellido=trim($_POST['apellidos']);
+$apellido=trim($_POST['apellido']);
 $mail=trim($_POST['mail']);
 $contrasena=$_POST['contrasena'];
 $confirmocontrasena=$_POST['confirmocontrasena'];
@@ -58,7 +58,7 @@ $contrasenasegura=password_hash($contrasena, PASSWORD_BCRYPT);
 
 //Ahora es la base de datos, aqui si tiene que meter la tabla de usuarios o no se como le puso
 //esto si es ia, lo tiene que meter, maria porque yo no lo tengo
-$sql="INSERT INTO usuarios (cedula, nombre, apellidos, mail, contrasena, acept_terminos_condiciones, fecha_registro, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+$sql="INSERT INTO usuarios (cedula, nombre, apellido, mail, contrasena, acept_terminos_condiciones, fecha_registro, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 
 //ya esto no es ia
@@ -80,4 +80,3 @@ $checkmail->close();
 $stmt->close();
 $conexionbasededatos ->close();
 ?>
-
