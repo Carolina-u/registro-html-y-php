@@ -58,7 +58,7 @@ $contrasenasegura=password_hash($contrasena, PASSWORD_BCRYPT);
 
 //Ahora es la base de datos, aqui si tiene que meter la tabla de usuarios o no se como le puso
 //esto si es ia, lo tiene que meter, maria porque yo no lo tengo
-$sql="INSERT INTO usuarios (cedula, nombre, apellidos, mail, contrasena, acept_terminos_condiciones) VALUES (?, ?, ?, ?, ?,?)";
+$sql="INSERT INTO usuarios (cedula, nombre, apellidos, mail, contrasena, acept_terminos_condiciones, fecha_registro, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
 
 //ya esto no es ia
@@ -80,3 +80,4 @@ $checkmail->close();
 $stmt->close();
 $conexionbasededatos ->close();
 ?>
+
