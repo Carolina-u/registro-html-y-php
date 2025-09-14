@@ -108,7 +108,7 @@
 
       <!--maria, esto es lo de conexion al php para la base de datos en mysql-->
 
-      <form id="camposderegistro" action="registro.php" method="POST">
+      <form id="camposderegistro" action="registro.php" method="POST"> <!--Aqui ya lleva al php-->
         <!--cedula de ciudadania-->
         <label for="Cédula">Cédula de ciudadanía</label>
         <input type="text" id="cedula" name="cedula" required>
@@ -122,12 +122,12 @@
         <!--apellidos-->
         <label for="apellidos">Apellidos </label>
         <input type="text" id="apellidos" name="apellidos" required>
-        <div id="errorApellidos" class="errores"></div>
+        <div id="errorApellido" class="errores"></div>
 
         <!--correo-->
         <label for="correo">Correo electrónico</label>
         <input type="text" id="correo" name="correo" required>
-        <div id="errorCorreo" class="errores"></div> 
+        <div id="errorMail" class="errores"></div> 
 
         <!--contraseña-->
 
@@ -142,8 +142,8 @@
 
         <!--el coso de terminos ley 1581-->
         <div class="checkbox">
-          <input type="checkbox" id="aceptoterminos" name="aceptoterminos">
-          <label for="aceptoterminos">
+          <input type="checkbox" id="acept_terminos_condiciones" name="acept_terminos_condiciones">
+          <label for="acept_terminos_condiciones">
             Acepto los <a href="terminos.html" target="_blank">términos y condiciones</a>
           </label>
         </div>
@@ -159,7 +159,7 @@
     </div>
 
 
-    <!--el coso de javascript-->
+    <!--holi maria-->
 
     <script>
       const formulari=document.getElementById('camposderegistro');
@@ -175,11 +175,11 @@
         //optencion de valores, maria tengo sueño xd
         const cedula=document.getElementById("cedula").value.trim();
         const nombre =document.getElementById("nombre").value.trim();
-        const apellidos=document.getElementById("apellidos").value.trim();
-        const correo=document.getElementById("correo").value.trim();
+        const apellidos=document.getElementById("apellido").value.trim();
+        const correo=document.getElementById("mail").value.trim();
         const contrasena=document.getElementById("contrasena").value.trim();
         const confirmocontrasena=document.getElementById("confirmocontrasena").value.trim();
-        const aceptoterminos=document.getElementById("aceptoterminos").checked;
+        const aceptoterminos=document.getElementById("acept_terminos_condiciones").checked;
 
         if (cedula===""){
           document.getElementById("errorCedula").textContent="Ingresa tu cédula";
@@ -192,12 +192,12 @@
         }
         
         if (apellidos==="") {
-          document.getElementById("errorApellidos").textContent="Ingresa tus apellidos.";
+          document.getElementById("errorApellido").textContent="Ingresa tu apellido.";
           esvalido=false;
         }
 
         if (correo==="") {
-          document.getElementById("errorCorreo").textContent="Ingresa tu correo electrónico.";
+          document.getElementById("errorMail").textContent="Ingresa tu correo electrónico.";
           esvalido=false;
         }
 
@@ -211,7 +211,7 @@
           esvalid=false;
         }
 
-        if (!aceptoterminos) {
+        if (!acept_terminos_condiciones) {
           document.getElementById("errorAceptoTerminos").textContent="Tienes que aceptar los términos y condiciones.";
           esvalido=false;
         }
@@ -222,4 +222,3 @@
     </script>
   </body>
 </html>
-
