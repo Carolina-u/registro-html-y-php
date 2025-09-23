@@ -1,27 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html> <!--esto es para demostrar que es el html 5 o su version mas moderna-->
+<html lang="es"> <!--iindicar que esta en español y que muestre errores si no es-->
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro SIMUS.MJN</title>
+    <meta charset="UTF-8"> <!--para soportar los caracteres especiales del español-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--es para verse en telefonos-->
+    <title>Registro SIMUS.MJN</title> <!--titulo depestaña-->
     <style>
       body {
-        font-family: monospace, sans-serif;
+        font-family: monospace, sans-serif; /*fuente de letra principal*/
         background: linear-gradient(to right, #5d49f8d2, #b8b6cf); /*este es pal fondo*/
-        display: flex;
-        justify-content: center;
-        align-items:center;
-        height: 100vh;
-        margin: 0;
+        display: flex; /*centrar contenido mas facil*/
+        justify-content: center; /*que todo vaya en el centro o alienado al centro en horizontal*/
+        align-items:center; /*palabras titulos botones etc en el centro en vertical*/
+        height: 100vh; /*altura de lo que se ve en pantalla*/
+        margin: 0; /*elimjna los margenes del navegador si los tiene*/
       }
       .cajaderegistro {
-        background: white;
-        padding: 60px;
-        border-radius: 20px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.637);
-        width:400px;
+        background: white; /*el color del recuadro blanco donde esta el coso de registro*/
+        padding: 60px;  /*espacio dentro del recuadro por todos los lados para que haya espacio*/
+        @media (max-width:480px){
+          padding: 20px;
+        }
+        border-radius: 20px; /*los bordes del recuadrte blanco se redondean con esto*/
+        box-shadow: 0 4px 8px rgba(0,0,0,0.637); /*sombra de color negro para que resalte el coso*/
+        width:400px; /*ancho que va a tener dentro del recuadro*/
       }
-      h2 {
+      h2 { /*esto es para el titulo de crear cuenta, centrado y don colorcito*/
         text-align: center;
         color:#6d5fe0;
       }
@@ -108,25 +111,27 @@
 
       <!--maria, esto es lo de conexion al php para la base de datos en mysql-->
 
-      <form id="camposderegistro" action="registro.php" method="POST"> <!--Aqui ya lleva al php-->
+      <form id="camposderegistro" action="registro.php" method="POST"> <!--Aqui ya lleva al registro php-->
+        <!--el method http o  es para enviar los datos -->
+        <!--el form permite crear un formulario qye agrupa los campos-->
         <!--cedula de ciudadania-->
-        <label for="Cédula">Cédula de ciudadanía</label>
-        <input type="text" id="cedula" name="cedula" required>
+        <label for="cedula">Cédula de ciudadanía</label>
+        <input type="text" id="cedula" name="cedula" required> <!--el id es el unico paa el js-->
         <div id="errorCedula" class="errores"></div>
 
         <!--nombre del usuario-->
         <label for="nombre">Nombre </label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="nombre" name="nombre" required> <!--el required es para wue el campo sea obligatorio-->
         <div id="errorNombre" class="errores"></div>
 
         <!--apellidos-->
-        <label for="apellidos">Apellidos </label>
-        <input type="text" id="apellidos" name="apellidos" required>
+        <label for="apellido">Apellido </label>
+        <input type="text" id="apellido" name="apellido" required>
         <div id="errorApellido" class="errores"></div>
 
         <!--correo-->
-        <label for="correo">Correo electrónico</label>
-        <input type="text" id="correo" name="correo" required>
+        <label for="mail">Correo electrónico</label>
+        <input type="text" id="mail" name="mail" required>
         <div id="errorMail" class="errores"></div> 
 
         <!--contraseña-->
@@ -172,8 +177,8 @@
         document.querySelectorAll(".errores").forEach(e=>e.textContent="");
 
 
-        //optencion de valores, maria tengo sueño xd
-        const cedula=document.getElementById("cedula").value.trim();
+        //optencion de valores, 
+        const cedula=document.getElementById("cedula").value.trim(); //busca el input con el id, obtiene su valor y quita espacios (en ese orden)
         const nombre =document.getElementById("nombre").value.trim();
         const apellidos=document.getElementById("apellido").value.trim();
         const correo=document.getElementById("mail").value.trim();
@@ -207,11 +212,11 @@
         }
 
         if (confirmocontrasena!==contrasena){
-          document.getElementById("errorConfirmoContrasena").textContent="Las contraseñas no coinciden.";
-          esvalid=false;
+          document.getElementById("errorconfirmocontrasena").textContent="Las contraseñas no coinciden.";
+          esvalido=false;
         }
 
-        if (!acept_terminos_condiciones) {
+        if (!aceptoterminos) {
           document.getElementById("errorAceptoTerminos").textContent="Tienes que aceptar los términos y condiciones.";
           esvalido=false;
         }
