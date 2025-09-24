@@ -107,7 +107,7 @@
         margin: 10px 0; /*margen arriba y abajo*/
         border:1px solid #ccc;
         border-radius:8px;
-        color:white;
+        color:rgb(134, 82, 82);
         font-size : 16px; 
         box-sizing: border-box;
       }
@@ -132,6 +132,19 @@
         font-size:14px;
         text-decoration: none; /*sin subrayado*/;
         color: #6d5fe0;
+      }
+      .mensajeerror{
+        color:#d93025;
+        background-color: #fce8e6;
+        padding:10px;
+        border-radius: 4px;
+        border:1px solid #f28b82;
+        margin:10px 0;
+        font-size: 14px;
+        display:none;
+      }
+      .inputerror{
+        border:2px solid #d93025 !important;
       }
       /*contenido de historia, propositos y caracteristicas*/
       .secciondecontenido{
@@ -259,12 +272,13 @@
       <div class="cajadelogin">
         <div class="cajitadeingreso">
           <h2>Iniciar sesión</h2>
-          <form>
-            <input type ="text" placeholder="Número de cédula" required>
-            <input type="password" placeholder="Contraseña" required>
+          <div id="mensajeerror" class="mensajeerror"></div>
+          <form id="formulariologin" action="login.php" method="POST">
+            <input type="text" name="cedula" placeholder="Número de cédula" required>
+            <input type="password" name="contrasena" placeholder="Contraseña" required>
             <button type="submit">Entrar</button>
             <a href="registro.html">¿No tienes cuenta? Regístrate</a>
-            <a href="#">¿Olvidaste tu contraseña?</a>
+
           </form>
         </div>
       </div>
@@ -333,12 +347,11 @@
         </div>
         <div class="columnadelpie">
           <h3>Recursos</h3>
-          <a href="#">Tutoriales</a>
+          <a href="https://youtu.be/DOo2jXZ3aWc?si=CEuu-p9G20gTNyor">Tutoriales</a>
         </div>
         <div class="columnadelpie">
           <h3>Legal</h3>
           <a href="terminos.html">Términos y condiciones de uso</a>
-          <a href="#">Política de privacidad y tratamiento de datos</a>
         </div>
       </div>
       <div class="inferiorpie">
@@ -346,6 +359,71 @@
         <p>Copyright © 2025 SIMUS.MJN - Todos los derechos reservados</p> 
       </div>
     </piedepagina>
+
+    <script>
+      document.addEventListener('DOMContentLoaded',function(){ //se espera que este completamente cargado
+        //obtiene los paramentros de la url 
+        //el urlsearchparams obtiene los parametros
+        const urlParams=new URLSearchParams(window.location.search);
+        const error=urlParams.get('error'); //obtiene el valor error
+        const mensajeerror=document.getElementById('mensajeerror');//busca en el html un id donde se muestran los mensajes
+        if (error){ //si existe error en la url o el login
+          mensajeerror.style.display='block'; //se muestra el mensaje de error que en un principo esta oculto
+          switch(error){ //mira que error es para mostrar su respectivo mensaje
+            case 'usuarioNoEncontrado':
+              mensajeerror.textContent='Usuario no encontrado. Verifica tu cédula.';
+              break;
+            case 'contrasenaIncorrecta':
+              mensajeerror.textContent='Contraseña incorrecta, intenta nuevamente.';
+              break;
+            case 'camposVacios':
+              mensajeerror.textContent='Completa todos los campos.';
+              break;
+            default:
+              mensajeerror.textContent='Error al iniciar sesión.'
+          }
+        }
+        //se toman encuenta los eventos al formulario con su id
+        //se acitva cuanfo el usuario trate de enviar el formulario
+        document.getElementById('formulariologin').addEventListener('submit', function(e) {
+          //busca prevenir que el formulario se envie de una vez 
+          e.preventDefault();
+          const cedula=document.querySelector('input[name="cedula"]').value.trim();//obtiene el numero de cedula y elimina espacios al inicio y al final
+          const contrasena=document.querySelector('input[name="contrasena"]').value;//lo mismo pero con la contraseña
+
+          mensajeerror.style.display='none';//esconde cualquier mensaje de error antes
+          document.querySelectorAll('input').forEach(input =>{ //hace un recorrido en todos los inputs del formulario y quita la clase de error
+            input.classList.remove('inputerror');
+        });
+
+          let hayerror=false; //variable para controlar si hay errores
+          if (cedula==='' || contrasena===''){
+            mensajeerror.textContent='Por favor, completa los campos';
+            mensajeerror.style.display='block';
+            hayerror=true 
+          }
+          if (cedula !==''&& !/^\d+$/.test(cedula)){ ///^\d+$/ es una expresiónque significa: "desde el inicio (^) hasta el final ($) solo dígitos (\d) uno o más veces (+)"
+            mensajeerror.textContent='La cédula solo debe tener números';
+            mensajeerror.style.display='block';
+            //se mete la clase de error para el input de cedula
+            document.querySelector('input[name="cedula"]').classList.add('input-error');
+            hayerror=true;
+          }
+          if (!hayerror){//si no hay errores en lo anterior
+            this.submit(); //envia el formulario al php
+          }
+        });
+         document.querySelectorAll('input').forEach(input => { //se toma en cuenta los eventos a cada input del formulario
+          //se activs cada vez qwue el usuario escribe algo dentro de los campos
+          input.addEventListener('input', function() { 
+            mensajeError.style.display = 'none';
+            //quita la clase de error del input actual
+            this.classList.remove('input-error');
+          });
+        });
+      });
+    </script>
     
   </body>
 </html>
+
