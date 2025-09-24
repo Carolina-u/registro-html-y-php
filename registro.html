@@ -156,7 +156,7 @@
 
         <!--elboton de enviar-->
         <button type="submit">Registrarse</button>
-      <form>
+      </form>
 
       <div class="linkdelogin">
         ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>
@@ -223,7 +223,12 @@
         if (esvalido){
           formulari.submit();
         }
+       if (esvalido){
+          formulari.submit();
+          window.location.href="login.html";
+        }
       });
     </script>
   </body>
 </html>
+
