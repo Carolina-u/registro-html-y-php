@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de juegos</title>
+    <style>
+      body{
+        font-family: monospace, sans-serif;
+        background: #f2f2f2;
+        margin:0;
+        padding:0;
+      }
+      header{
+        background: linear-gradient(135deg, #8a7cf7, #6d5fe0);
+        color:white; 
+        padding:20px;
+        text-align: center;
+        font-size:22px;
+        font-weight: bold;
+      }
+      .contenedr{ /*contiene las tarjetas donde van lod juegos*/
+        max-width: 900px;
+        margin:40px auto ;
+        padding: 20px;
+      }
+
+      .btn_pago {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .btn_pago button{
+        padding: 12px 24px;
+        font-size: 16px ;
+        background: #8a7cf7;
+        color:white;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        transition: background 0.3s;
+      }
+      .btn_pago button:hover{
+        background: #6d5fe0;
+      }
+      .eltotal { /*muestra el total a pagar*/
+        font-size:18px;
+        margin-bottom:15px;
+        color:#333;
+        font-weight: bold;
+
+      }
+      .tarjeta{ /*tarjeta o cuadro donde va cada juego*/
+        display:flex;
+        align-items: flex-start;
+        background: #fff;
+        border-radius:12px;
+        padding:20px;
+        margin-bottom: 20px;
+        box-shadow:0 4px 8px rgba(0,0,0,0.15);
+      }
+
+      .logo{
+        width: 80px;
+        height:80px;
+        background: #ddd;
+        border-radius:10px;
+        margin-right: 20px;
+        flex-shrink: 0;
+        display:flex;
+        align-items:center;
+        justify-content: center;
+        font-size: 12px;
+        color:#555;
+      }
+
+      .contenido  {
+        flex:1;
+      }
+      .contenido h2{
+        margin:0;
+        color:#333;
+
+      }
+      .contenido p {
+        margin:6px 0;
+        color:#333;
+      }
+      .valorprecio{
+        font-weight:bold;
+        margin-top:10px;
+        color:#444;
+
+      }
+      .accion{ /*donde va el checkbox y el boton de descarga*/
+        margin-top:12px;
+        
+      }
+      .accion input{ /*checkbox*/
+        margin-right: 8px;
+      }
+      .accion .botondedescarga{
+        padding:8px 16px;
+        background: #ccc;
+        color:#fff;
+        text-decoration:none;
+        border-radius:6px;
+        font-weight: bold;
+        cursor:not-allowed;
+        pointer-events: none;
+        transition:background 0.3s ease;
+      }
+      .accion .botondedescarga.active{ /*clase que se activa en verde los botones de descarga cuando se paga*/
+        background: #28a745;
+        cursor:pointer;
+        pointer-events: auto;
+      }
+      footer {
+      background: #f1f1f1;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    </style>
+  </head>
+  <body>
+    <header>
+      ¡Descarga los juegos que quieras!
+    </header>
+    <div class="contenedr">
+      <div class="btn_pago">
+        <div class="eltotal">Total a pagar: $0.00 COP</div>
+        <button onclick="procesarpago()">Pagar</button>
+      </div>
+      <!--juego 1 estrella-->
+      <div class="tarjeta" data-precio="0"> <!--atributo de data-precio es para saber el precio del juego-->
+        <div class="logo">Logo</div>
+        <div class="contenido">
+          <h2>SIMUS.MJN</h2>
+          <p><strong>Descripción:</strong> Juego de aprendizaje y comunicación a través de gestos manuales y oculares. Es nuestro juego emblema.</p>
+          <p class="valorprecio">Valor: $0.00 COP</p>
+          <div class="accion">
+            <input type="checkbox" class="seleccion" onchange="actualizartotal()">
+            Seleccionar
+            <a href="https://drive.google.com/file/d/1aFJ-ODgBxBtFExOp9S6614P6bu232hut/view" class="botondedescarga">Descargar</a>
+          </div>
+        </div>
+      </div>
+      <!--juego 2 dos-->
+      <div class="tarjeta" data-precio="15.000"> <!--atributo de data-precio va sumando el total a pagar-->
+        <div class="logo">Logo2</div>
+        <div class="contenido">
+          <h2>DragonBox: Numbers</h2>
+          <p><strong>Descripción:</strong>Juego pensado para niños pequeños. Con simpáticos personajes llamados Nooms, enseña a contar, sumar y restar de manera visual y manipulativa. Básicamente convierte las matemáticas en un juego de construcción y exploración. </p>
+          <p class="valorprecio">Valor: $15.000 COP</p>
+          <div class="accion">
+            <input type="checkbox" class="seleccion" onchange="actualizartotal()">
+            Seleccionar
+            <a href="https://play.google.com/store/apps/details?id=com.kahoot.numbers&pli=1" class="botondedescarga">Descargar</a>
+          </div>
+        </div>
+      </div>
+      <!--juego 3 tres-->
+      <div class="tarjeta" data-precio="15.000">
+        <div class="logo">Logo3</div>
+        <div class="contenido">
+          <h2>Lightbot</h2>
+          <p><strong>Descripción:</strong> Juego de rompecabezas donde controlas un robot que debe encender casillas en un tablero. Para lograrlo, usas instrucciones como “avanzar”, “girar” o “repetir”. Enseña los fundamentos de la programación y la lógica computacional.</p>
+          <p class="valorprecio">Valor: $15.000 COP</p>
+          <div class="accion">
+            <input type="checkbox" class="seleccion" onchange="actualizartotal()">
+            Seleccionar
+            <a href="https://lightbot.lu/" class="botondedescarga">Descargar</a>
+          </div>
+        </div>
+      </div>
+      <!--juego cuatro-->
+      <div class="tarjeta" data-precio="20.000">
+        <div class="logo">Logo4</div>
+        <div class="contenido">
+          <h2>TuxPaint</h2>
+          <p><strong>Descripción:</strong> TuxPaint es un programa de dibujo para niños que combina la creatividad con la educación. Ofrece una interfaz amigable y herramientas divertidas para que los más pequeños exploren su imaginación.</p>
+          <p class="valorprecio">Valor: $20.000 COP</p>
+          <div class="accion">
+            <input type="checkbox" class="seleccion" onchange="actualizartotal()">
+            Seleccionar
+            <a href="https://tuxpaint.org/download/" class="botondedescarga">Descargar</a>
+          </div>
+        </div>
+      </div>
+      <!--juego cinco-->
+      <div class="tarjeta" data-precio="0.00">
+        <div class="logo">Logo5</div>
+        <div class="contenido">
+          <h2>Stellarium</h2>
+          <p><strong>Descripción:</strong> Un planetario 3D en tu computadora. Permite observar estrellas, planetas y constelaciones en tiempo real, como si tuvieras un telescopio virtual. Ideal para aprender astronomía de manera interactiva.</p>
+          <p class="valorprecio">Valor: $0.00 COP</p>
+          <div class="accion">
+            <input type="checkbox" class="seleccion" onchange="actualizartotal()">
+            Seleccionar
+            <a href="https://github.com/Stellarium/stellarium/releases/download/v25.3/stellarium-25.3-qt5-win64.exe" class="botondedescarga">Descargar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+      <footer>
+    <p><strong>SIMUS.MJN</strong> - Todos los derechos reservados © 2025</p>
+      </footer>
+    <script>
+  
+      function actualizartotal(){
+        let total=0;
+        document.querySelectorAll(".tarjeta").forEach(tarjeta=>{
+          let check =tarjeta.querySelector(".seleccion");
+          let precio=parseFloat(tarjeta.getAttribute("data-precio"));
+          if (check.checked) total+=precio;
+        });
+        document.querySelector(".eltotal").innerText="Total por pagar: $"+total.toFixed(2)+" COP";
+      }
+
+      function procesarpago() {
+        let juegos=document.querySelectorAll(".tarjeta");
+        let seleccionados=0;
+        juegos.forEach(tarjeta=>{
+          let check=tarjeta.querySelector(".seleccion");
+          let descarga=tarjeta.querySelector(".botondedescarga");
+          
+          if (check.checked){
+            seleccionados++;
+            descarga.classList.add("active");
+          }
+        });
+        if (seleccionados>0){
+          alert("Pago realizado. Ahora puedes descargar los seleccionados.");
+        }else {
+          alert("Por favor selecciona al menos un juego para continuar.");
+          }
+        }
+    </script>
+  </body>
+</html>
